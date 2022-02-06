@@ -1,0 +1,89 @@
+// NLP Phase 3 - Post 2010
+// Pseudocode by Lukas Sondell, 2022, provided under GNU AFFERO GENERAL PUBLIC LICENSE Version 3
+// Machine Learning in NLP
+// 
+// Based loosely on
+// - "AIQ" (Polson & Scott, 2018)
+// - "Mastering Machine Learning Algorithms" (Bonaccorso, 2020)
+// - "The Nature of Code" (Shiffman, 2012)
+// - 3Blue1Brown's Deep Learning Series (https://www.youtube.com/c/3blue1brown)
+
+class NeuralNode {
+   bias = 1
+   weight
+
+   function Activation(inputValue){
+      if (inputValue is less than 0.5) {
+         return 0
+      }
+      if (inputValue is more than 0.5){
+         return 1
+      }
+   }
+
+   function AdjustWeights(adjustment){
+      adjust weight by adjustment
+   }
+
+   function UseNode(inputData) {
+      return result of Activation(inputData * weight + bias)
+   }
+}
+
+class NeuralLayer {
+   [  NeuralNode[1]  ...  NeuralNode[n]   ]
+
+   function UseLayer(SpeechBinaryBuffer){
+      Run UseNode(SpeechBinaryBuffer) on layer's nodes
+      return the results
+   }
+}
+
+class NeuralNetwork {
+   [  NeuralLayer[1]   ...    NeuralLayer[n]   ]
+
+   function TrainNetwork([SpeechBinaryBuffer,CorrectTransscript]) {
+      loop (as long as specified) {
+         Run UseLayer(SpeechBinaryBuffer) on first layer
+         Forward the results through the rest of the layers
+         
+         Convert the final layer to text
+         Loss = Difference between the results of the converted text and CorrectTransscript
+         Run AdjustWeights(Loss) on the nodes of the network // Yes, this is massively oversimplified
+      }
+   }
+
+   function UseNetwork(SpeechBinaryBuffer) {
+      Run UseLayer(SpeechBinaryBuffer) on first layer
+      Forward the results through UseLayer(result) on the rest of the layers
+      Convert the final layer to text
+      return converted text
+   }
+}
+
+class TrainingSpeech {
+   AudioFile
+   CorrectTransscript
+}
+
+function GetSpeechForTraining(TrainingSpeech) {
+   convert TrainingSpeech.AudioFile to binary
+   return [
+      SpeechBinaryBuffer,
+      TrainingSpeech.CorrectTransscript
+   ]
+}
+
+function GetSpeechForProcessing(TrainingSpeech) {
+   convert TrainingSpeech.AudioFile to binary
+   return SpeechBinaryBuffer
+}
+
+procedure SpeechToText() {
+   while (Network is not good yet) {
+      TrainNetwork(GetSpeechForTraining())
+   }
+
+   return text from running UseNetwork(GetSpeechForProcessing())
+
+}

@@ -1,0 +1,45 @@
+// NLP Phase 1 - Pre 80's
+//
+// This program tries to understand spoken language by implementing a rule structure
+
+function GetSpeech(file inputAudio) {
+   convert inputAudio to list of Phrases
+   return [Phrases]
+}
+
+function FindSyllable(Soundpart) {
+   for (Syllable in List Of Syllables){
+      if (Soundpart matches Syllable){
+         return Matching Syllable
+      }
+   }
+}
+
+function SyllablesToWord([Syllables]) {
+   Check what word the List Of Syllables seems to be
+   return Word
+}
+
+function FindPhraseMeaning([Sentences]) {
+   Check what words appear in what order
+   Fetch meaning that comes from words in that order
+   return Meaning
+}
+
+procedure UnderstandSpeech() {
+   Phrase = GetSpeech()
+
+   PhraseSentences = []
+   for (Sentence in Phrase) {
+      SentenceWords = []
+      for (Word in Sentence) {
+         WordSyllables = []
+         for (Soundpart in Word){
+            add FindSyllable(Soundpart) to WordSyllables
+         }
+         add SyllablesToWord(WordSyllables) to SentenceWords
+      }
+      add [SentenceWords] to [PhraseSentences]
+   }
+   return result of FindPhraseMeaning(PhraseSentences)
+}

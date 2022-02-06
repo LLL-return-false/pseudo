@@ -1,0 +1,44 @@
+// NLP Phase 2 - 1980 to 2010
+//
+// Based on Phase 1 NLP concept, improved with statistics
+
+function GetSpeech(inputAudioFile) {
+   convert inputAudioFile to list of Phrases
+   return [Phrases]
+}
+
+function FindPotentialSyllables(Soundpart) {
+   Check what syllable the sound seems to be
+   Make list of potential Syllables
+   return [PotentialSyllables]
+}
+
+function SyllablesToPotentialWords([[Syllables]]) {
+   Check what words the potential syllables can make
+   Make list of potential words
+   return [PotentialWords]
+}
+
+function FindLikelyPhraseMeaning([Sentences]) {
+   Check potential word sequences
+   Compare potential sequences with statistical probablilities
+   return MeaningOfMostLikelySequence
+}
+
+procedure UnderstandSpeechStatistically() {
+   Phrase = GetSpeech()
+
+   PhraseSentences = []
+   for (Sentence in Phrase) {
+      SentenceWords = []
+      for (Word in Sentence) {
+         WordSyllables = []
+         for (Soundpart in Word){
+            add FindPotentialSyllables(Soundpart) to WordSyllables
+         }
+         add SyllablesToPotentialWords(PotentialWordSyllables) to PotentialSentenceWords
+      }
+      add PotentialSentenceWords to PhraseSentences
+   }
+   FindLikelyPhraseMeaning(PhraseSentences)
+}
